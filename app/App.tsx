@@ -1,73 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
 import 'intl-pluralrules';
-import '@/i18n/index';
-import { useTranslation } from 'react-i18next';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import './i18n/index';
+import { useAtom } from 'jotai';
+import { useEffect } from 'react';
+import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import LocationCoords from './components/LocationCoords';
+import { getLocation } from './services/location';
+import { locationAtom } from './stores';
+import styled from 'styled-components/native';
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+const LocationBar = styled.View`
+  align-items: center;
+  padding: 20px;
+`;
 
 const App = () => {
-  const { t } = useTranslation();
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [, setLocation] = useAtom(locationAtom);
+
+  useEffect(() => {
+    (async function run() {
+      const loc = await getLocation();
+      setLocation(loc);
+    })();
+  }, [setLocation]);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-      >
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}
-        >
-          <Text style={styles.sectionTitle}>{t('appName')}</Text>
-        </View>
+    <SafeAreaView>
+      <StatusBar barStyle="light-content" />
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <LocationBar>
+          <LocationCoords />
+        </LocationBar>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

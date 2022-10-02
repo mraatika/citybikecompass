@@ -1,5 +1,8 @@
 {
   "translation": {
-    "appName": "Citybike compass"
+    "appName": "Citybike compass",
+    "home": {
+      "location": "Lat: <b>{{lat}}</b>, Lon: <b>{{lon}}</b>"
+    }
   }
 }

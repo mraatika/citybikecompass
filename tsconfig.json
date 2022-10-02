@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["app/*"]
     },
+    "types": ["react-native", "jest", "@types/styled-components-react-native"],
     "skipLibCheck": true,
-  }
+  },
 }
