@@ -7,7 +7,9 @@
  *
  * @format
  */
-
+import 'intl-pluralrules';
+import '@/i18n/index';
+import { useTranslation } from 'react-i18next';
 import {
   SafeAreaView,
   ScrollView,
@@ -21,8 +23,8 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
+  const { t } = useTranslation();
   const isDarkMode = useColorScheme() === 'dark';
-
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -42,7 +44,7 @@ const App = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}
         >
-          <Text style={styles.sectionTitle}>Citybike compass</Text>
+          <Text style={styles.sectionTitle}>{t('appName')}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
