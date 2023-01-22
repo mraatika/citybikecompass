@@ -1,6 +1,5 @@
 {
-    "arrowParens": "always",
-    "singleQuote": true,
-    "svelteSortOrder": "options-scripts-markup-styles",
-    "trailingComma": "all"
-  }
+  "arrowParens": "always",
+  "singleQuote": true,
+  "trailingComma": "all"
+}
