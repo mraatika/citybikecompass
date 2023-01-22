@@ -3,6 +3,9 @@
     "appName": "Citybike compass",
     "home": {
       "location": "Lat: <b>{{lat}}</b>, Lon: <b>{{lon}}</b>"
+    },
+    "compass": {
+      "angle": "Angle: <b>{{angle}}deg</b>"
     }
   }
 }
