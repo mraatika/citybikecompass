@@ -1,9 +1,9 @@
-import { startWatchingHeading } from '@/services/location';
-import { LocationHeadingObject, LocationSubscription } from 'expo-location';
-import { useEffect, useState } from 'react';
+import { heading$ } from '@/services/location';
+import { LocationHeadingObject } from 'expo-location';
 import { Trans } from 'react-i18next';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
+import { useObservable } from '../../util/hooks';
 import { Bold } from '../Typography';
 import CompassRose from './CompassRose';
 
@@ -23,20 +23,7 @@ const StyledAngleDebugger = styled(AngleDebugger)`
 `;
 
 function Compass() {
-  const [heading, setHeading] = useState<LocationHeadingObject>();
-
-  useEffect(() => {
-    let handler: LocationSubscription;
-
-    (async function run() {
-      handler = await startWatchingHeading(setHeading);
-    })();
-
-    return () => {
-      handler?.remove();
-    };
-  }, []);
-
+  const { value: heading } = useObservable(heading$);
   return (
     <CompassContainer>
       <StyledCompassRose heading={heading?.trueHeading ?? 0} />
@@ -45,17 +32,16 @@ function Compass() {
   );
 }
 
-function AngleDebugger({ heading }: any) {
+function AngleDebugger({ heading }: { heading?: LocationHeadingObject }) {
   return (
     <>
       <Text>
         <Trans
           i18nKey="compass.angle"
           components={{ b: <Bold /> }}
-          values={{ angle: 0 }}
+          values={heading}
         />
       </Text>
-      <Text>{JSON.stringify(heading)}</Text>
     </>
   );
 }

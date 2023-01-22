@@ -5,7 +5,7 @@
       "location": "Lat: <b>{{lat}}</b>, Lon: <b>{{lon}}</b>"
     },
     "compass": {
-      "angle": "Angle: <b>{{angle}}deg</b>"
+      "angle": "True: <b>{{trueHeading}}deg</b>\nMagnetic: <b>{{magHeading}}deg</b>"
     }
   }
 }

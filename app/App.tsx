@@ -1,13 +1,9 @@
 import 'intl-pluralrules';
-import './i18n';
-import { useAtom } from 'jotai';
-import { useEffect } from 'react';
-import styled from 'styled-components/native';
 import { SafeAreaView, StatusBar } from 'react-native';
-import LocationCoords from './components/LocationCoords';
-import { getLocation } from './services/location';
-import { locationAtom } from './stores';
+import styled from 'styled-components/native';
 import Compass from './components/Compass';
+import LocationCoords from './components/LocationCoords';
+import './i18n';
 
 const MainView = styled.View`
   height: 100%;
@@ -25,15 +21,6 @@ const LocationBar = styled.View`
 `;
 
 const App = () => {
-  const [, setLocation] = useAtom(locationAtom);
-
-  useEffect(() => {
-    (async function run() {
-      const loc = await getLocation();
-      setLocation(loc);
-    })();
-  }, [setLocation]);
-
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" />

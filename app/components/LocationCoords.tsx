@@ -1,19 +1,21 @@
-import { useAtomValue } from 'jotai';
+import { coords$ } from '@/services/location';
+import { LocationObjectCoords } from 'expo-location';
 import React from 'react';
 import { Trans } from 'react-i18next';
 import { Text } from 'react-native';
-import { coordsAtom } from '../stores';
+import { useObservable } from '../util/hooks';
 import { Bold } from './Typography';
 
 function LocationCoords() {
-  const coords = useAtomValue(coordsAtom);
+  const { value: coords } = useObservable<LocationObjectCoords>(coords$);
+
   return (
     <Text>
       <Trans
         i18nKey="home.location"
         values={{
-          lat: coords?.latitude ?? 'n/a',
-          lon: coords?.longitude ?? 'n/a',
+          lat: coords?.latitude ?? '-',
+          lon: coords?.longitude ?? '-',
         }}
         components={{
           b: <Bold />,
