@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Observable, share } from 'rxjs';
+import * as Rx from 'rxjs';
 
-export const useObservable = <T>(observable$: Observable<T>) => {
+export const useObservable = <T>(observable$: Rx.Observable<T>) => {
   const [value, setValue] = useState<T>();
   const [error, setError] = useState<Error>();
 
   useEffect(() => {
     const subscription = observable$
-      .pipe(share())
+      .pipe(Rx.share())
       .subscribe({ next: setValue, error: setError });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [observable$]);
 
   return { value, error };
 };

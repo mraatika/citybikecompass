@@ -1,8 +1,9 @@
-import Svg, { Circle, Text, Path } from 'react-native-svg';
+import Svg, { Circle, Path, Text } from 'react-native-svg';
 import styled from 'styled-components/native';
 
 interface CompassRoseProps {
   heading: number;
+  stations: Coords[];
 }
 
 const RoseSvg = styled(Svg)`
@@ -11,11 +12,13 @@ const RoseSvg = styled(Svg)`
   ${({ rotation }) => `transform: rotateZ(${rotation}deg);`}
 `;
 
+const pointerColors = ['cyan', 'magenta', 'yellowgreen'];
+
 function calculateRotationFromHeading(heading: number) {
   return heading;
 }
 
-function CompassRose({ heading }: CompassRoseProps) {
+function CompassRose({ heading, stations }: CompassRoseProps) {
   const rotation = calculateRotationFromHeading(heading);
 
   return (
